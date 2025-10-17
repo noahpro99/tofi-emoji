@@ -44,8 +44,8 @@ writeShellApplication {
     ${builtins.readFile ../scripts/tofi-emoji}
   '';
   meta = with lib; {
-    description = "Minimal emoji picker using tofi; types emoji directly or copies to clipboard";
-    homepage = "https://github.com/yourname/tofi-emoji";
+    description = "Minimal emoji picker using tofi; types emoji directly and copies to clipboard";
+    homepage = "https://github.com/noahpro99/tofi-emoji";
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "tofi-emoji";

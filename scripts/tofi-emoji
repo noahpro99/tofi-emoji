@@ -47,5 +47,5 @@ wl-copy -n "$glyph"
 
 # Also try to type the emoji directly if wtype is available
 if command -v wtype >/dev/null 2>&1; then
-  wtype -s 0 "$glyph"
+  wtype "$glyph"
 fi
