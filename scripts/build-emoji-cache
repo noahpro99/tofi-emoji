@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/emoji.tsv"
+mkdir -p "$(dirname "$cache")"
+
+src="${TOFI_EMOJI_UNICODE_FILE:-}"
+if [ -z "$src" ]; then
+  tmp="$(mktemp)"
+  curl -fsSL https://unicode.org/Public/emoji/15.1/emoji-test.txt -o "$tmp"
+  src="$tmp"
+fi
+
+gawk '
+  /^[^#].*; fully-qualified/ {
+    split($0, p, /# /)
+    if (length(p)<2) next
+    split(p[2], f, " ")
+    g=f[1]
+    sub(/^[^ ]+ /, "", p[2])
+    printf("%s\t%s\n", g, p[2])
+  }
+' "$src" > "$cache"

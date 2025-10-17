@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/emoji.tsv"
+if [ ! -s "$cache" ]; then
+  "${TOFI_EMOJI_CACHE_HELPER:-tofi-emoji-cache}"
+fi
+
+choice="$(cut -f1,2 "$cache" | sed 's/\t/  /' | tofi --prompt "emoji" --require-match=true)"
+[ -n "${choice:-}" ] || exit 0
+
+glyph="${choice%% *}"
+wl-copy -n "$glyph"
