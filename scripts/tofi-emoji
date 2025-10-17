@@ -30,7 +30,7 @@ while [ "$idx" -lt "${#args[@]}" ]; do
 done
 
 if [ "$has_prompt_text" -eq 0 ]; then
-  args+=("--prompt-text" "emoji")
+  args+=("--prompt-text" "emoji: ")
 fi
 
 if [ "$has_require_match" -eq 0 ]; then
