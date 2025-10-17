@@ -6,7 +6,30 @@ if [ ! -s "$cache" ]; then
   "${TOFI_EMOJI_CACHE_HELPER:-tofi-emoji-cache}"
 fi
 
-choice="$(cut -f1,2 "$cache" | sed 's/\t/  /' | tofi --prompt "emoji" --require-match=true)"
+args=("$@")
+has_prompt=0
+has_require_match=0
+
+for idx in "${!args[@]}"; do
+  case "${args[$idx]}" in
+    --prompt|--prompt=*)
+      has_prompt=1
+      ;;
+    --require-match|--require-match=*)
+      has_require_match=1
+      ;;
+  esac
+done
+
+if [ "$has_prompt" -eq 0 ]; then
+  args+=("--prompt" "emoji")
+fi
+
+if [ "$has_require_match" -eq 0 ]; then
+  args+=("--require-match")
+fi
+
+choice="$(cut -f1,2 "$cache" | sed 's/\t/  /' | tofi "${args[@]}")"
 [ -n "${choice:-}" ] || exit 0
 
 glyph="${choice%% *}"
