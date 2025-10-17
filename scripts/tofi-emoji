@@ -7,30 +7,30 @@ if [ ! -s "$cache" ]; then
 fi
 
 args=("$@")
-has_prompt=0
+has_prompt_text=0
 has_require_match=0
 
 idx=0
 while [ "$idx" -lt "${#args[@]}" ]; do
   current="${args[$idx]}"
   case "$current" in
-    --prompt|-p|--prompt=*)
-      has_prompt=1
+    --prompt-text|--prompt-text=*|-p|--prompt|--prompt=*)
+      has_prompt_text=1
       ;;
     --require-match|--require-match=*)
       has_require_match=1
       ;;
   esac
 
-  if [ "$current" = "--prompt" ] || [ "$current" = "-p" ] || [ "$current" = "--require-match" ]; then
+  if [ "$current" = "--prompt-text" ] || [ "$current" = "-p" ] || [ "$current" = "--prompt" ] || [ "$current" = "--require-match" ]; then
     idx=$((idx + 1))
   fi
 
   idx=$((idx + 1))
 done
 
-if [ "$has_prompt" -eq 0 ]; then
-  args+=("--prompt" "emoji")
+if [ "$has_prompt_text" -eq 0 ]; then
+  args+=("--prompt-text" "emoji")
 fi
 
 if [ "$has_require_match" -eq 0 ]; then
