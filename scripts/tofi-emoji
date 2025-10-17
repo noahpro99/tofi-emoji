@@ -41,4 +41,11 @@ choice="$(cut -f1,2 "$cache" | sed 's/\t/  /' | tofi "${args[@]}")"
 [ -n "${choice:-}" ] || exit 0
 
 glyph="${choice%% *}"
+
+# Always copy to clipboard
 wl-copy -n "$glyph"
+
+# Also try to type the emoji directly if wtype is available
+if command -v wtype >/dev/null 2>&1; then
+  wtype -s 0 "$glyph"
+fi

@@ -3,6 +3,7 @@
   writeShellApplication,
   tofi,
   wl-clipboard,
+  wtype,
   gawk,
   coreutils,
   gnused,
@@ -33,6 +34,7 @@ writeShellApplication {
   runtimeInputs = [
     tofi
     wl-clipboard
+    wtype
     gnused
     coreutils
   ];
@@ -42,7 +44,7 @@ writeShellApplication {
     ${builtins.readFile ../scripts/tofi-emoji}
   '';
   meta = with lib; {
-    description = "Minimal emoji picker using tofi; copies glyph to clipboard";
+    description = "Minimal emoji picker using tofi; types emoji directly or copies to clipboard";
     homepage = "https://github.com/yourname/tofi-emoji";
     license = licenses.mit;
     platforms = platforms.linux;
